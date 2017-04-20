@@ -16,12 +16,6 @@ switch (liriArgument) {
     case "spotify-this":
         spotifyMe();
         break;
-
-       
-        //make room for future cases here
-        // case "ruby-this":
-        //     rubyThis();
-        //     break;
 };
 
 
@@ -59,13 +53,6 @@ function spotifyMe() {
 
 };
 
-
-//Future functions go here
-// function rubyThis() {
-//     var dogFriend = process.argv[3];
-//     console.log(dogFriend);
-//     // console.log("Ruby loves you");
-// };
 
 
 
