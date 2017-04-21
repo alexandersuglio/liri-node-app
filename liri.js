@@ -1,9 +1,8 @@
-
 // var twitter = require("twitter");
-// var request = require("Request");
 
 
 var fs = require("fs");
+var request = require("Request");
 
 // shows the contents of the array, [3] & [4]
 // console.log(process.argv);
@@ -15,6 +14,9 @@ switch (liriArgument) {
 
     case "spotify-this":
         spotifyMe();
+        break;
+    case "movie-this":
+        movieThis();
         break;
 };
 
@@ -53,8 +55,16 @@ function spotifyMe() {
 
 };
 
+function movieThis() {
 
+    var titleEnter = process.argv[3];
+    if (titleEnter === undefined) {
+        titleEnter = "Mr. Nobody";
+};
 
+request('http://www.omdbapi.com/?t=' + titleEnter, function (error, response, body) {
+ 
+  console.log(body);
 
-
-
+});
+};
