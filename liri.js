@@ -1,6 +1,3 @@
-// var twitter = require("twitter");
-
-
 var fs = require("fs");
 var request = require("Request");
 
@@ -8,6 +5,8 @@ var request = require("Request");
 // console.log(process.argv);
 
 // console.log("Welcome to the spotify-this app! To begin enter the name of the song you want more info about below!");
+var Twitter = require("twitter");
+var key = require('./key');
 var spotify = require("spotify");
 var liriArgument = process.argv[2];
 switch (liriArgument) {
@@ -17,6 +16,9 @@ switch (liriArgument) {
         break;
     case "movie-this":
         movieThis();
+        break;
+    case "tweet-this":
+        tweetThis();
         break;
 };
 
@@ -60,11 +62,38 @@ function movieThis() {
     var titleEnter = process.argv[3];
     if (titleEnter === undefined) {
         titleEnter = "Mr. Nobody";
+    };
+
+    request('http://www.omdbapi.com/?t=' + titleEnter, function(error, response, body) {
+        var body = JSON.parse(body);
+        console.log("Title: "+ body.Title);
+                console.log("Year: " + body.Year);
+                        console.log("Released: " + body.Released);
+                                console.log("Title: " + body.Title);
+        console.log("Awards: " + body.Awards);
+                console.log("Rating: " + body.Rated);
+
+    });
 };
 
-request('http://www.omdbapi.com/?t=' + titleEnter, function (error, response, body) {
- 
-  console.log(body);
 
-});
+
+function tweetThis() {
+
+    var client = new Twitter(key.twitterKeys);
+ 
+    client.get('statuses/user_timeline', function(error, tweets, response) {
+for (var i = 0; i < tweets.length; i++){
+
+        if (!error) {
+            console.log("Tweet: " + tweets[i].text);
+            console.log("Created: " + tweets[i].created_at);
+            console.log("Twitter Handle: @" + tweets[i].user.screen_name);
+            console.log("\n");
+
+        } else {
+            console.log("ERROR! " + error);
+        }
+}
+    });
 };
