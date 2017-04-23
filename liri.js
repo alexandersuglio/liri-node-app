@@ -38,6 +38,9 @@ function spotifyMe() {
                 console.log("Album Name: " + data.tracks.items[3].album.name);
                 console.log("Song Link: " + data.tracks.items[3].external_urls.spotify);
             }
+            else {
+            console.log("ERROR! " + error);
+            }
         });
 
     } else {
@@ -48,6 +51,9 @@ function spotifyMe() {
                 console.log("Artist's name: " + data.tracks.items[0].album.artists[0].name);
                 console.log("Album Name: " + data.tracks.items[0].album.name);
                 console.log("Song Link : https://play.spotify.com/track/" + data.tracks.items[0].id + "?play=true&utm_source=open.spotify.com&utm_medium=open");
+            }
+            else {
+            console.log("ERROR! " + error);
             }
 
 
@@ -66,13 +72,17 @@ function movieThis() {
 
     request('http://www.omdbapi.com/?t=' + titleEnter, function(error, response, body) {
         var body = JSON.parse(body);
-        console.log("Title: "+ body.Title);
-                console.log("Year: " + body.Year);
-                        console.log("Released: " + body.Released);
-                                console.log("Title: " + body.Title);
+      if (!error){
+        console.log("Title: " + body.Title);
+        console.log("Year: " + body.Year);
+        console.log("Released: " + body.Released);
+        console.log("Title: " + body.Title);
         console.log("Awards: " + body.Awards);
-                console.log("Rating: " + body.Rated);
-
+        console.log("Rating: " + body.Rated);
+}
+else {
+   console.log("ERROR! " + error);    
+}
     });
 };
 
@@ -81,19 +91,19 @@ function movieThis() {
 function tweetThis() {
 
     var client = new Twitter(key.twitterKeys);
- 
+
     client.get('statuses/user_timeline', function(error, tweets, response) {
-for (var i = 0; i < tweets.length; i++){
+        for (var i = 0; i < tweets.length; i++) {
 
-        if (!error) {
-            console.log("Tweet: " + tweets[i].text);
-            console.log("Created: " + tweets[i].created_at);
-            console.log("Twitter Handle: @" + tweets[i].user.screen_name);
-            console.log("\n");
+            if (!error) {
+                console.log("Tweet: " + tweets[i].text);
+                console.log("Created: " + tweets[i].created_at);
+                console.log("Twitter Handle: @" + tweets[i].user.screen_name);
+                console.log("\n");
 
-        } else {
-            console.log("ERROR! " + error);
+            } else {
+                console.log("ERROR! " + error);
+            }
         }
-}
     });
 };
